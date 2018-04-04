@@ -1,0 +1,104 @@
+source 'https://rubygems.org'
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.1.6'
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
+# Use Puma as the app server
+gem 'puma', '~> 3.7'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+gem 'redis', '~> 4.0'
+# Use ActiveModel has_secure_password
+gem 'bcrypt', '~> 3.1.7'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
+
+# authentication and authorization
+gem "devise"
+gem "pundit"
+gem "jwt"
+gem "omniauth-facebook"
+gem "omniauth-google-oauth2"
+gem "omniauth-oauth2"
+gem "omniauth-twitter"
+
+# database related
+gem "kaminari"
+gem "ransack"
+
+# Configuration
+gem "figaro"
+
+# RESTapi
+gem "rails_param"
+
+# Async
+gem "sidekiq"
+gem "sidekiq-cron"
+gem "sidekiq-failures"
+gem "sidekiq-status"
+
+# Validation
+gem "validates_timeliness"
+gem "working_hours"
+
+# Error Tracker
+gem "airbrake", "~> 6.0"
+# Upload Handler
+# gem 'fog'
+gem "paperclip", "~> 5.1.0"
+# mailchimp gem
+gem "gibbon"
+
+# Social Network Gems
+gem "acts-as-taggable-on" # add tags
+gem "acts_as_votable" # like or dislike
+gem "geocoder"
+gem "google_timezone"
+gem "impressionist" # count views
+gem "telephone_number"
+
+gem "dry-validation"
+gem "pry-rails", group: :development
+gem "rubocop", require: false
+gem "useragent"
+
+# swagger in concerns
+gem "swagger-docs"
+
+group :development, :test do
+  # Call "byebug" anywhere in the code to stop execution and get a debugger console
+  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "listen", ">= 3.0.5", "< 3.2"
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
+  # Use Capistrano for deployment
+  gem "capistrano-rails"
+
+  gem "factory_bot_rails"
+  gem "faker"
+end
+
+group :test do
+  # gem "bullet"
+  gem "database_cleaner"
+  gem "jmespath"
+  gem "rspec-rails", "~> 3.5"
+  gem "shoulda-matchers"
+  gem "simplecov", require: false
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
