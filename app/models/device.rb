@@ -1,6 +1,8 @@
 class Device < ApplicationRecord
+  include Auth
+
   belongs_to :user
-  has_many :auth_tokens
+  has_many :auth_tokens, autosave: true
 
   validates :uuid, uniqueness: true
   validates :name, presence: true
