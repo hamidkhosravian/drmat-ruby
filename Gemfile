@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -25,70 +25,70 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors'
 
 # authentication and authorization
-gem "pundit"
-gem "jwt"
+gem 'jwt'
+gem 'pundit'
 
 # database related
-gem "kaminari"
-gem "ransack"
+gem 'kaminari'
+gem 'ransack'
 
 # Configuration
-gem "figaro"
+gem 'figaro'
 
 # RESTapi
-gem "rails_param"
+gem 'rails_param'
 
 # Async
-gem "sidekiq"
-gem "sidekiq-cron"
-gem "sidekiq-failures"
-gem "sidekiq-status"
+gem 'sidekiq'
+gem 'sidekiq-cron'
+gem 'sidekiq-failures'
+gem 'sidekiq-status'
 
 # Validation
-gem "validates_timeliness"
+gem 'validates_timeliness'
 
 # Error Tracker
-gem "airbrake", "~> 6.0"
+gem 'airbrake', '~> 6.0'
 # Upload Handler
 # gem 'fog'
-gem "paperclip", "~> 5.1.0"
+gem 'paperclip', '~> 5.1.0'
 # mailchimp gem
-gem "gibbon"
+gem 'gibbon'
 
 # Social Network Gems
-gem "acts-as-taggable-on" # add tags
-gem "acts_as_votable" # like or dislike
-gem "geocoder"
-gem "google_timezone"
-gem "impressionist" # count views
-gem "telephone_number"
+gem 'acts-as-taggable-on' # add tags
+gem 'acts_as_votable' # like or dislike
+gem 'geocoder'
+gem 'google_timezone'
+gem 'impressionist' # count views
+gem 'telephone_number'
 
-gem "dry-validation"
-gem "rubocop", require: false
-gem "useragent"
+gem 'dry-validation'
+gem 'rubocop', require: false
+gem 'useragent'
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: %i[mri mingw x64_mingw]
-  gem "listen", ">= 3.0.5", "< 3.2"
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   # Use Capistrano for deployment
-  gem "capistrano-rails"
+  gem 'capistrano-rails'
 
-  gem "factory_bot_rails"
-  gem "faker"
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :test do
   # gem "bullet"
-  gem "database_cleaner"
-  gem "jmespath"
-  gem "rspec-rails", "~> 3.5"
-  gem "shoulda-matchers"
-  gem "simplecov", require: false
+  gem 'database_cleaner'
+  gem 'jmespath'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
