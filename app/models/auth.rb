@@ -10,7 +10,7 @@ module Auth
   # Class.auth_tokens.token # => eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJhdXRoX3R
   # Class.auth_tokens.refresh_token # => ab9239a532e59a164e1e9a319d5c
   # ttl = ENV['AUTH_TOKEN_TTL'].to_i
-  def generate_auth_token(ttl = ENV["AUTH_TOKEN_TTL"], refresh_ttl = ENV["REFRESH_TOKEN_TTL"], socket_ttl = ENV["SOCKET_TOKEN_TTL"])
+  def generate_auth_token(ttl = ENV['AUTH_TOKEN_TTL'], refresh_ttl = ENV['REFRESH_TOKEN_TTL'], socket_ttl = ENV['SOCKET_TOKEN_TTL'])
     ttl = ttl.to_i.hour.from_now
     socket_ttl = ttl.to_i.hour.from_now
     refresh_ttl = refresh_ttl.to_i.hour.from_now
@@ -47,7 +47,7 @@ module Auth
     user.last_sign_in_at = user.current_sign_in_at || new_current
     user.current_sign_in_at = new_current
 
-    new_current = env["REMOTE_ADDR"]
+    new_current = env['REMOTE_ADDR']
     user.last_sign_in_ip = user.current_sign_in_ip || new_current
     user.current_sign_in_ip = new_current
 

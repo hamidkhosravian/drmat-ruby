@@ -1,4 +1,4 @@
-require "auth_token_service"
+require 'auth_token_service'
 
 # authentication Service
 # use JWT
@@ -10,7 +10,7 @@ class AuthService
   # @param request [Request]
   def initialize(request)
     @request = request
-    @auth_token = request.headers["Authorization"]
+    @auth_token = request.headers['Authorization']
   end
 
   # check user token
@@ -45,20 +45,20 @@ class AuthService
 
   def valid_device?
     user_agent = UserAgent.parse @request.user_agent
-    if user_agent.first.comment.to_s.downcase.include? "android"
+    if user_agent.first.comment.to_s.downcase.include? 'android'
       os = 0
-    elsif user_agent.first.comment.to_s.downcase.include? "ios"
+    elsif user_agent.first.comment.to_s.downcase.include? 'ios'
       os = 1
-    elsif user_agent.first.comment.to_s.downcase.include? "windows"
+    elsif user_agent.first.comment.to_s.downcase.include? 'windows'
       os = 2
-    elsif user_agent.first.comment.to_s.downcase.include? "linux"
+    elsif user_agent.first.comment.to_s.downcase.include? 'linux'
       os = 3
-    elsif user_agent.first.comment.to_s.downcase.include? "os" || "macintosh"
+    elsif user_agent.first.comment.to_s.downcase.include? 'os' || 'macintosh'
       os = 4
     end
 
-    uuid = @params.try(:[], "device").try(:[], "uid") || @request.session.id
-    name = @params.try(:[], "device").try(:[], "name") || user_agent.browser
+    uuid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
+    name = @params.try(:[], 'device').try(:[], 'name') || user_agent.browser
     device = ::Device.find_by(uuid: decoded_auth_token[:uuid])
     device.os == os && device.name == name && device.uuid == uuid
   end
@@ -70,12 +70,10 @@ class AuthService
 
   # get token from Authorization in header
   def http_auth_token
-    if auth_token.present?
-      if auth_token.to_s.split(" ").first.casecmp("bearer").zero?
-        @http_auth_token ||= auth_token.split(" ").last
-      elsif Rails.env.development? && auth_token.split(" ").first.casecmp("basic").zero?
-        @http_auth_token = Base64.decode64(auth_token.split(" ").last)
-      end
+    if auth_token.to_s.split(' ').first.casecmp('bearer').zero?
+      @http_auth_token ||= auth_token.split(' ').last
+    elsif Rails.env.development? && auth_token.split(' ').first.casecmp('basic').zero?
+      @http_auth_token = Base64.decode64(auth_token.split(' ').last)
     end
   end
 end

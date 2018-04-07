@@ -1,11 +1,11 @@
-require "auth_service"
+require 'auth_service'
 
 module Helpers::AuthHelper
   # generate a refresh token for user's device
   def refresh_user!(token, request)
     auth_token = AuthToken.find_by(refresh_token: token)
     # refresh token expires
-    raise AuthError, I18n.t("messages.authentication.signin.refresh_token") if auth_token.nil? || auth_token.refresh_token_expires_at.nil? || auth_token.refresh_token_expires_at.to_date <= Time.now
+    raise AuthError, I18n.t('messages.authentication.signin.refresh_token') if auth_token.nil? || auth_token.refresh_token_expires_at.nil? || auth_token.refresh_token_expires_at.to_date <= Time.now
 
     device = auth_token.tokenable
     create_token(device, request)

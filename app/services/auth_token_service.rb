@@ -1,4 +1,4 @@
-require "jwt"
+require 'jwt'
 
 class AccessDeniedError < StandardError
 end
@@ -8,7 +8,7 @@ class AuthenticationTimeoutError < StandardError
 end
 
 class AuthTokenService
-  ISSUER = ENV["PROJECT_NAME"]
+  ISSUER = ENV['PROJECT_NAME']
 
   # Encode a hash in a json web token
   def self.encode(payload, ttl)
