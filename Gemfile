@@ -25,13 +25,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'rack-cors'
 
 # authentication and authorization
-gem "devise"
 gem "pundit"
 gem "jwt"
-gem "omniauth-facebook"
-gem "omniauth-google-oauth2"
-gem "omniauth-oauth2"
-gem "omniauth-twitter"
 
 # database related
 gem "kaminari"
@@ -51,7 +46,6 @@ gem "sidekiq-status"
 
 # Validation
 gem "validates_timeliness"
-gem "working_hours"
 
 # Error Tracker
 gem "airbrake", "~> 6.0"
@@ -70,12 +64,8 @@ gem "impressionist" # count views
 gem "telephone_number"
 
 gem "dry-validation"
-gem "pry-rails", group: :development
 gem "rubocop", require: false
 gem "useragent"
-
-# swagger in concerns
-gem "swagger-docs"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
