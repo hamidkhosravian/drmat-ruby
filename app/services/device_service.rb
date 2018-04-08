@@ -4,16 +4,15 @@ class DeviceService
     @request = request
   end
 
-  def create_device_token(user)
+  def create_or_find_device(user)
     user_agent = UserAgent.parse @request.user_agent
     uuid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
     device = user.devices.find_by(uuid: uuid)
 
-    if device
-      device.update_attributes(verify: SecureRandom.hex(3))
-    else
-      device = create_device(user)
-    end
+    byebug
+
+    device = create_device(user) unless device
+    device
   end
 
   def create_device(user)
@@ -32,13 +31,14 @@ class DeviceService
       device.os = 3
     elsif user_agent.first.comment.to_s.downcase.include? 'os' || 'macintosh'
       device.os = 4
+    else
+      raise ServerError, 'sorry we have a problem with your os!'
     end
 
     device.name = name
     device.uuid = uuid
     device.device_last_ip = @request.remote_ip
     device.device_current_ip = @request.remote_ip
-    device.verify = SecureRandom.hex(3)
     device.save!
     device
   end
@@ -47,7 +47,6 @@ class DeviceService
     device.device_last_ip = device.device_current_ip
     device.device_current_ip = @request.remote_ip
     device.updated_at = Time.now
-    device.verify = SecureRandom.hex(3)
     device.invalidate_auth_token
     device.generate_auth_token
     device.update_tracked_fields(@request.env)

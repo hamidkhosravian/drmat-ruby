@@ -38,17 +38,17 @@ ActiveRecord::Schema.define(version: 20180407121524) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "verify"
-    t.datetime "verify_sent_at"
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "phone"
-    t.integer "role"
+    t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "uuid"
+    t.string "verify"
+    t.datetime "verify_sent_at"
   end
 
   add_foreign_key "auth_tokens", "devices"

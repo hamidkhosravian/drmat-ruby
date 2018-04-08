@@ -1,6 +1,6 @@
 require 'auth_service'
 
-module Helpers::AuthHelper
+module AuthHelper
   # generate a refresh token for user's device
   def refresh_user!(token, request)
     auth_token = AuthToken.find_by(refresh_token: token)

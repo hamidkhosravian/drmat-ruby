@@ -1,0 +1,1 @@
+class ObjectError < ::RuntimeError; end

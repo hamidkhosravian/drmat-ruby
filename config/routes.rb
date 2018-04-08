@@ -1,3 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/" => "welcome#index"
+
+  namespace :api do
+    namespace :v1 do
+      post   "access_token"        => "authentication#access_token"
+      post   "authorize_token"     => "authentication#authorize_token"
+      put    "refresh_token" => "authentication#refresh_token"
+      delete "logout"        => "authentication#logout"
+    end
+  end
 end
