@@ -5,7 +5,7 @@ module Api
         param! :phone, String, blank: false, required: true
 
         @user = UserService.new.access(params, request)
-        render 'api/v1/users/access'
+        render 'api/v1/users/access_token'
       end
 
       def authorize_token
@@ -27,7 +27,7 @@ module Api
         raise BadRequestError, I18n.t('messages.device.details_error') if params.try(:[], 'device').try(:[], 'uid').blank? && request.session.blank?
 
         @device = refresh_user!(params[:refresh_token], request)
-        render 'api/v1/devices/show'
+        render 'api/v1/users/authorize'
       end
     end
   end

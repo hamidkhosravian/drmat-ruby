@@ -1,7 +1,6 @@
 class UserService
   def access(params, request)
     phone_object = TelephoneNumber.parse(params[:phone], :ir)
-    byebug
     user = User.find_or_create_by!(phone: "0#{phone_object.normalized_number}")
     secure_number = SecureRandom.hex(3)
 

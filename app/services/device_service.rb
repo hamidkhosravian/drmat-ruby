@@ -8,9 +8,6 @@ class DeviceService
     user_agent = UserAgent.parse @request.user_agent
     uuid = @params.try(:[], 'uid')
     device = user.devices.find_by(uuid: uuid)
-
-    byebug
-
     device = create_device(user) unless device
     device
   end
@@ -40,7 +37,6 @@ class DeviceService
     device.agent = @params.try(:[], 'agent')
     device.device_last_ip = @request.remote_ip
     device.device_current_ip = @request.remote_ip
-    byebug
     device.save!
     device
   end
