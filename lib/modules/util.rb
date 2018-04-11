@@ -5,7 +5,7 @@ module Util
   end
 
   def generate_random_secure(number)
-    o = [("0".."9"), ("a".."z")].map(&:to_a).flatten
+    o = [('0'..'9'), ('a'..'z')].map(&:to_a).flatten
     res = (1..number).map { o[rand(o.length)] }.join
     res
   end

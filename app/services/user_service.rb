@@ -9,9 +9,9 @@ class UserService
     conn = Faraday.new base_url
     response = conn.post do |req|
       req.url 'verify/lookup.json'
-      req.params["receptor"] = user.phone
-      req.params["token"] = secure_number
-      req.params["template"] = "verification"
+      req.params['receptor'] = user.phone
+      req.params['token'] = secure_number
+      req.params['template'] = 'verification'
     end
 
     response = JSON.parse(response.body)
@@ -22,7 +22,7 @@ class UserService
 
   def authorize(params,  request)
     user = User.find_by(verify: params['verify'])
-    raise BadRequestError, 'token is not valid.' unless user and (DateTime.parse((user.verify_sent_at + ENV['VERIFY_TTL'].to_i.minutes).to_s) >= DateTime.now)
+    raise BadRequestError, 'token is not valid.' unless user && (DateTime.parse((user.verify_sent_at + ENV['VERIFY_TTL'].to_i.minutes).to_s) >= DateTime.now)
     device = DeviceService.new(params, request).create_or_find_device(user)
     DeviceService.new(params, request).create_token(device)
     device
