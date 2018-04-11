@@ -55,7 +55,8 @@ gem 'paperclip', '~> 5.1.0'
 # mailchimp gem
 gem 'gibbon'
 
-# Social Network Gems
+# other Gems
+gem 'faraday'
 gem 'acts-as-taggable-on' # add tags
 gem 'acts_as_votable' # like or dislike
 gem 'geocoder'

@@ -1,33 +1,53 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   hello: "Hello world"
+  api:
+    auth:
+      signup:
+        success:
+          verify_sent: "We've sent you a verification code, please send to us this code to verify this account."
+      resend_confirmation:
+        success:
+          verify_sent: "We sent you another verification to verify your account."
+      confirm_email:
+        errors:
+          invalid_confirm_token: "verification is invalid"
+        success:
+          confirm: "Your account is confirmed , you can signin right now"
+      new_confirm_emial:
+        success:
+          confirm: "We've sent you a verification code, please send to us this code to verify this account."
+          sent_confirm: "Account was already confirmed, please try signing in"
+        errors:
+          user_confirmed: "user already is confirmed."
+
+  messages:
+    http:
+      _200: "Ok"
+      _201: "Record created"
+      _400: "Bad request"
+      _401: "Access is unauthorized"
+      _403: "Access is forbidden"
+      _404: "Record not found"
+      _500: "Connection was lost"
+
+    device:
+      details_error: "device details not correct."
+
+    authentication:
+      signin:
+        refresh_token: "refresh token is deprecated, please signin"
+        confirm_account: "please confirm your account!"
+
+      invalid_role: "the role not valid."
+
+      timeout: "Authentication timeout"
+      create_user: "Your account is created, you can signin right now."
+
+    all: "ALL"
+
+    profile:
+      phone_number:
+        invalid: "your number is not correct format."
+
+    country:
+      not_found: "the country not found."

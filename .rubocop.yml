@@ -100,7 +100,7 @@ Style/GlobalVars:
   Enabled: false # TODO: rewrite basic config
 
 Style/GuardClause:
-  Enabled: true
+  Enabled: false
 
 Style/HashSyntax:
   Enabled: true
