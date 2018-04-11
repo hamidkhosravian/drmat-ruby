@@ -6,7 +6,7 @@ class DeviceService
 
   def create_or_find_device(user)
     user_agent = UserAgent.parse @request.user_agent
-    uuid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
+    uuid = @params.try(:[], 'uid')
     device = user.devices.find_by(uuid: uuid)
 
     byebug
@@ -18,8 +18,8 @@ class DeviceService
   def create_device(user)
     device = user.devices.new
     user_agent = UserAgent.parse @request.user_agent
-    uuid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
-    name = @params.try(:[], 'device').try(:[], 'name') || user_agent.browser
+    uuid = @params.try(:[], 'uid')
+    name = @params.try(:[], 'name')
 
     if user_agent.first.comment.to_s.downcase.include? 'android'
       device.os = 0
@@ -32,13 +32,15 @@ class DeviceService
     elsif user_agent.first.comment.to_s.downcase.include? 'os' || 'macintosh'
       device.os = 4
     else
-      raise ServerError, 'sorry we have a problem with your os!'
+      device.os = 5
     end
 
     device.name = name
     device.uuid = uuid
+    device.agent = @params.try(:[], 'agent')
     device.device_last_ip = @request.remote_ip
     device.device_current_ip = @request.remote_ip
+    byebug
     device.save!
     device
   end

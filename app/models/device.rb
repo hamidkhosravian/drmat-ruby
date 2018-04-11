@@ -9,7 +9,7 @@ class Device < ApplicationRecord
   validates :os, presence: true
   validates :agent, presence: true
 
-  enum os: %i[android ios windows linux mac_os]
+  enum os: %i[android ios windows linux mac_os other]
   enum agent: %i[android_app, ios_app, web_app]
 
   before_validation :generate_uuid

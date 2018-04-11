@@ -14,7 +14,7 @@ module AuthHelper
   # invalidate all session
   def logout_user!
     device_id = ::AuthService.new(request).destroy_session!
-    device = ::Device.includes(:auth_tokens).find_by_id(device_id)
+    device = ::Device.find_by(uuid: device_id)
     device.invalidate_auth_token
   end
 

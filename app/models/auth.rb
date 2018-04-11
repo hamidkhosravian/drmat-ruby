@@ -43,15 +43,7 @@ module Auth
   # Params:
   # +env+: request header
   def update_tracked_fields(env)
-    new_current = Time.now.utc
-    user.last_sign_in_at = user.current_sign_in_at || new_current
-    user.current_sign_in_at = new_current
-
-    new_current = env['REMOTE_ADDR']
-    user.last_sign_in_ip = user.current_sign_in_ip || new_current
-    user.current_sign_in_ip = new_current
-
-    user.sign_in_count = user.sign_in_count.to_i + 1
+    user.verify_sent_at = 1.days.ago
     user.save!
   end
 

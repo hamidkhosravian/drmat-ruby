@@ -34,13 +34,13 @@ class AuthService
 
   # check user has access or not for a request
   def valid_to_proceed?
-    http_auth_token && decoded_auth_token && decoded_auth_token[:uuid] && valid_token? # && valid_device?
+    http_auth_token && decoded_auth_token && decoded_auth_token[:uuid] && valid_token? && valid_device?
   end
 
   # check user token and validation of token
   def valid_token?
     device = ::Device.find_by(uuid: decoded_auth_token[:uuid])
-    token.token == http_auth_token if device
+    device.token.token == http_auth_token if device
   end
 
   def valid_device?
@@ -55,12 +55,12 @@ class AuthService
       os = 3
     elsif user_agent.first.comment.to_s.downcase.include? 'os' || 'macintosh'
       os = 4
+    else
+      os = 5
     end
 
-    uuid = @params.try(:[], 'device').try(:[], 'uid') || @request.session.id
-    name = @params.try(:[], 'device').try(:[], 'name') || user_agent.browser
     device = ::Device.find_by(uuid: decoded_auth_token[:uuid])
-    device.os == os && device.name == name && device.uuid == uuid
+    device.os == decoded_auth_token[:os] && device.name == decoded_auth_token[:name] && device.uuid == decoded_auth_token[:uuid]
   end
 
   # decode the token and return the response
@@ -70,10 +70,12 @@ class AuthService
 
   # get token from Authorization in header
   def http_auth_token
-    if auth_token.to_s.split(' ').first.casecmp('bearer').zero?
-      @http_auth_token ||= auth_token.split(' ').last
-    elsif Rails.env.development? && auth_token.split(' ').first.casecmp('basic').zero?
-      @http_auth_token = Base64.decode64(auth_token.split(' ').last)
+    if auth_token.present?
+      if auth_token.to_s.split(' ').first.casecmp('bearer').zero?
+        @http_auth_token ||= auth_token.split(' ').last
+      elsif Rails.env.development? && auth_token.split(' ').first.casecmp('basic').zero?
+        @http_auth_token = Base64.decode64(auth_token.split(' ').last)
+      end
     end
   end
 end

@@ -2,11 +2,17 @@ module Api
   module V1
     class AuthenticationController < ApiController
       def access_token
+        param! :phone, String, blank: false, required: true
+
         @user = UserService.new.access(params, request)
         render "api/v1/users/access"
       end
 
       def authorize_token
+        param! :name, String, blank: false, required: true
+        param! :uid, String, blank: false, required: true
+        param! :agent, String, blank: false, required: true
+
         @device = UserService.new.authorize(params, request)
         render "api/v1/users/authorize"
       end
