@@ -8,12 +8,12 @@ en:
       resend_confirmation:
         success:
           verify_sent: "We sent you another verification to verify your account."
-      confirm_email:
+      confirm_token:
         errors:
           invalid_confirm_token: "verification is invalid"
         success:
           confirm: "Your account is confirmed , you can signin right now"
-      new_confirm_emial:
+      new_confirm:
         success:
           confirm: "We've sent you a verification code, please send to us this code to verify this account."
           sent_confirm: "Account was already confirmed, please try signing in"
