@@ -21,7 +21,7 @@ class UserService
 
   def authorize(params,  request)
     user = User.find_by(verify: params['verify'])
-    raise BadRequestError, 'token is not valid.' unless user && (DateTime.parse((user.verify_sent_at + ENV['VERIFY_TTL'].to_i.minutes).to_s) >= DateTime.now)
+    raise BadRequestError, I18n.t('api.auth.confirm_token.errors.invalid_confirm_token') unless user && (DateTime.parse((user.verify_sent_at + ENV['VERIFY_TTL'].to_i.minutes).to_s) >= DateTime.now)
     device = DeviceService.new(params, request).create_or_find_device(user)
     DeviceService.new(params, request).create_token(device)
     device

@@ -23,8 +23,9 @@ module Api
 
       def refresh_token
         param! :refresh_token, String, blank: false, required: true
-
-        raise BadRequestError, I18n.t('messages.device.details_error') if params.try(:[], 'device').try(:[], 'uid').blank? && request.session.blank?
+        param! :uid, String, blank: false, required: true
+        param! :name, String, blank: false, required: true
+        param! :agent, String, blank: false, required: true
 
         @device = refresh_user!(params[:refresh_token], request)
         render 'api/v1/users/authorize'

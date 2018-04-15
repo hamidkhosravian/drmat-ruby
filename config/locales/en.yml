@@ -8,7 +8,7 @@ en:
       resend_confirmation:
         success:
           verify_sent: "We sent you another verification to verify your account."
-      confirm_email:
+      confirm_token:
         errors:
           invalid_confirm_token: "verification is invalid"
         success:
