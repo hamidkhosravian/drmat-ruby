@@ -1,2 +1,2 @@
 json.phone @user.phone
-json.response "verify code send to your number"
+json.response I18n.t('api.auth.signup.success.verify_sent')
