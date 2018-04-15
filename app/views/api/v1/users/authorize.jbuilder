@@ -1,5 +1,6 @@
 json.uuid @device.uuid
 json.phone @device.user.phone
+json.profile @device.user.profile
 json.token do
   json.token @device.token.token
   json.token_expires_at @device.token.token_expires_at
