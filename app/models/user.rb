@@ -1,11 +1,11 @@
 class User < ApplicationRecord
   has_many :devices
   has_one :profile
-  
+
   validates :phone, presence: true
   validates :role, presence: true
 
-  enum role: %i[client expert doctor]
+  enum role: %i[client expert doctor admin]
 
   before_validation :generate_uuid
 
