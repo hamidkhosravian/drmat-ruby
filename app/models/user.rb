@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :devices
+  has_many :messages
+  has_many :conversations, foreign_key: :sender_id
 
   validates :phone, presence: true
   validates :role, presence: true
