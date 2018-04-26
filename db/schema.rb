@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20180422115820) do
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
 
-<<<<<<< HEAD
   create_table "messages", force: :cascade do |t|
     t.text "body", null: false
     t.bigint "user_id"
@@ -62,8 +61,6 @@ ActiveRecord::Schema.define(version: 20180422115820) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
-=======
->>>>>>> f1752bb5f9a09cd72633affcc764a3f709637d0b
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id"
     t.string "first_name"
@@ -87,10 +84,7 @@ ActiveRecord::Schema.define(version: 20180422115820) do
 
   add_foreign_key "auth_tokens", "devices"
   add_foreign_key "devices", "users"
-<<<<<<< HEAD
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
-=======
->>>>>>> f1752bb5f9a09cd72633affcc764a3f709637d0b
   add_foreign_key "profiles", "users"
 end

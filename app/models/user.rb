@@ -2,7 +2,8 @@ class User < ApplicationRecord
   has_one :profile
   has_many :devices
   has_many :messages
-  has_many :conversations, foreign_key: :sender_id
+  has_many :start_conversations, foreign_key: :sender_id, class_name: 'Conversation'
+  has_many :listen_conversations, foreign_key: :recipient_id, class_name: 'Conversation'
 
   validates :phone, presence: true
   validates :role, presence: true
