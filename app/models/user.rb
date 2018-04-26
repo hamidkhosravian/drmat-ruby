@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one :profile
   has_many :devices
   has_many :messages
   has_many :conversations, foreign_key: :sender_id
@@ -6,7 +7,7 @@ class User < ApplicationRecord
   validates :phone, presence: true
   validates :role, presence: true
 
-  enum role: %i[client expert doctor]
+  enum role: %i[client expert doctor admin]
 
   before_validation :generate_uuid
 

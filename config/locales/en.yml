@@ -46,6 +46,7 @@ en:
     all: "ALL"
 
     profile:
+      not_found: "the profile is not exist"
       phone_number:
         invalid: "your number is not correct format."
 

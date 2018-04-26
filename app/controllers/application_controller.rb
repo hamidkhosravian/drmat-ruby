@@ -8,6 +8,7 @@ class ApplicationController < ActionController::API
   rescue_from BadRequestError, with: :render_bad_request_error
   rescue_from DryValidationError, with: :render_dry_validation_request_error
   rescue_from ObjectError, with: :render_object_error
+  rescue_from ProfileNotFoundError, with: :render_object_error
   rescue_from ActiveRecord::RecordNotFound, with: :render_object_not_found
   rescue_from ServerError, with: :render_server_error
 
