@@ -5,9 +5,9 @@ class Conversation < ApplicationRecord
 
   validates :sender_id, uniqueness: { scope: :recipient_id }
 
-  scope :list, -> (user) do
+  scope :list, lambda { |user|
     where('(conversations.sender_id = ? OR conversations.recipient_id = ?)', user.id, user.id)
-  end
+  }
 
   def opposed_user(user)
     user == recipient ? sender : recipient
