@@ -1,3 +1,1 @@
-json.conversation do
-  json.partial! 'api/v1/_partials/conversation/show', conversation: @conversation
-end
+json.partial! 'api/v1/_partials/conversation/show', conversation: @conversation

@@ -4,11 +4,15 @@ module Api
             before_action :authenticate_user_from_token!
 
             def index
-                @conversations = Conversation.
-                    where('(conversations.sender_id = ? OR conversations.recipient_id = ?)',
-                            current_user.id, current_user.id)
+              param! :page, Integer, default: 1
+              param! :limit, Integer, default: 10
 
-                render 'api/v1/conversation/index'
+              @conversations = Conversation.
+                  where('(conversations.sender_id = ? OR conversations.recipient_id = ?)',
+                          current_user.id, current_user.id).order("created_at DESC")
+                          .page(params[:page]).per(params[:limit])
+
+              render 'api/v1/conversation/index'
             end
 
             def create

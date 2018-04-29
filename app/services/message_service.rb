@@ -5,4 +5,10 @@ class MessageService
 
     message = Message.create!(user_id: user.id, conversation_id: conversation.id, body: body)
   end
+
+  def list(conversation_uuid, page, limit)
+    conversation = Conversation.find_by!(uuid: conversation_uuid)
+    messages = conversation.messages.order("created_at DESC")
+      .page(params[:page]).per(params[:limit]))
+  end
 end
