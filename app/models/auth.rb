@@ -23,7 +23,7 @@ module Auth
     auth_token.refresh_token = generate_refresh_token
     auth_token.refresh_token_expires_at = refresh_ttl
 
-    auth_token.socket_token = ::AuthTokenService.encode({ uuid: uuid, os: os }, refresh_ttl)
+    auth_token.socket_token = ::AuthTokenService.encode({ uuid: uuid, os: os }, socket_ttl)
     auth_token.socket_token_expires_at = refresh_ttl
   end
 
@@ -35,13 +35,13 @@ module Auth
 
     auth_token.token = ::AuthTokenService.encode({ uuid: uuid }, exp)
     auth_token.token_expires_at = 1.days.ago
+    auth_token.refresh_token = 1.days.ago
     auth_token.refresh_token_expires_at = 1.days.ago
+    auth_token.socket_token = 1.days.ago
+    auth_token.socket_token_expires_at = 1.days.ago
     auth_token.save!
   end
 
-  # update last sign in and last ip
-  # Params:
-  # +env+: request header
   def update_tracked_fields(env)
     user.verify_sent_at = 1.days.ago
     user.save!

@@ -10,7 +10,7 @@ module Api
 
         @messages = MessageService.new.list(conversation_uuid, page, limit)
 
-        render 'api/v1/message/index'
+        render 'api/v1/messages/index'
       end
 
       def create
@@ -20,7 +20,7 @@ module Api
 
         @message = MessageService.new.create(conversation_uuid, user_uuid, body)
 
-        render 'api/v1/message/show'
+        render 'api/v1/messages/show'
       end
     end
   end

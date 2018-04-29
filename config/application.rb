@@ -31,5 +31,15 @@ module Drmat
     config.api_only = true
     config.eager_load_paths += %W[#{Rails.root}/lib/]
     config.eager_load_paths += %W[#{Rails.root}/lib/modules/errors/]
+    config.action_cable.allowed_request_origins = [/.*/]
+
+    Rails.application.config.action_cable.disable_request_forgery_protection = true
+    config.middleware.insert_before 0, Rack::Cors  do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :options, :put, :delete, :patch]
+      end
+    end
+
   end
 end
