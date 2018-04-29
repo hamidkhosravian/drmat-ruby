@@ -10,7 +10,7 @@ class ConversationChannel < ApplicationCable::Channel
 
   def speak(data)
     body = data['body']
-    conversation = Conversation.find_by!(uuid: body["conversation_uid"])
-    Message.create!(body: body["message"], user: current_user, conversation: conversation)
+    conversation = Conversation.find_by!(uuid: body['conversation_uid'])
+    Message.create!(body: body['message'], user: current_user, conversation: conversation)
   end
 end

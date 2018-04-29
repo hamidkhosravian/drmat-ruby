@@ -9,7 +9,7 @@ module Api
 
               @conversations = Conversation.
                   where('(conversations.sender_id = ? OR conversations.recipient_id = ?)',
-                          current_user.id, current_user.id).order("created_at DESC")
+                          current_user.id, current_user.id).order('created_at DESC')
                           .page(params[:page]).per(params[:limit])
 
               render 'api/v1/conversations/index'
