@@ -31,14 +31,14 @@ class MessageBroadcastJob < ApplicationJob
   def render_message(message, user)
     ApplicationController.render(
       partial: 'api/v1/_partials/message/show',
-      locals: { message: message, profile: user.profile, user_uuid: user.uuid }
+      locals: { message: message, profile: user.profile }
     )
   end
 
   def render_window(conversation, user)
     ApplicationController.render(
       partial: 'api/v1/_partials/conversation/show',
-      locals: { conversation: conversation, profile: user.profile, user_uuid: user.uuid, current_user: conversation.sender }
+      locals: { conversation: conversation, profile: user.profile }
     )
   end
 end
