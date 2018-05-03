@@ -11,4 +11,12 @@ class MessageService
     messages = conversation.messages.order('created_at DESC')
       .page(params[:page]).per(params[:limit])
   end
+
+  def upload(conversation_uuid, user_uuid, attachment)
+    conversation = Conversation.find_by!(uuid: conversation_uuid)
+    user = User.find_by!(uuid: user_uuid)
+
+    # TODO
+    # check format of file and save in current model
+  end
 end
