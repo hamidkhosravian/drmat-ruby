@@ -29,5 +29,7 @@ class MessageService
 
     MessageBroadcastJob.perform_later(message)
     message
+  rescue
+    message.destroy!
   end
 end
