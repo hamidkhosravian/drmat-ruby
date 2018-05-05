@@ -4,6 +4,8 @@ class ConversationService
     conversation = Conversation.between(sender_id, recipient_id)
     return conversation if conversation.present?
 
-    Conversation.create!(sender_id: sender_id, recipient_id: recipient_id)
+    conversation = Conversation.create!(sender_id: sender_id, recipient_id: recipient_id)
+    ConversationBroadcastJob.perform_later(conversation)
+    conversation
   end
 end

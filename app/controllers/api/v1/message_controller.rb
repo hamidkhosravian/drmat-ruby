@@ -13,21 +13,15 @@ module Api
         render 'api/v1/messages/index'
       end
 
-      def create
-        param! :conversation_uuid, String, blank: false, required: true
-        param! :user_uuid, String, blank: false, required: true
-        param! :body, String, blank: false, required: true
+      def upload_file
+        conversation = Conversation.find_by!(uuid: params[:conversation_uuid])
 
-        @message = MessageService.new.create(params[:conversation_uuid], params[:user_uuid], params[:body])
+        raise BadRequestError, I18n.t('messages.http._401') unless
+          (current_user.id == conversation.sender_id) || (current_user.id == conversation.recipient_id)
+
+        @message = MessageService.new.upload(conversation.id, current_user.id, params[:attachment], params[:body])
 
         render 'api/v1/messages/show'
-      end
-
-      def upload_image
-        param! :conversation_uuid, String, blank: false, required: true
-        param! :user_uuid, String, blank: false, required: true
-        
-        @message = MessageService.new.create(params[:conversation_uuid], params[:user_uuid], params[:attachment])
       end
     end
   end

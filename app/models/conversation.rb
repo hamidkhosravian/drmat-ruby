@@ -15,8 +15,6 @@ class Conversation < ApplicationRecord
 
   before_validation :generate_uuid
 
-  after_create_commit { ConversationBroadcastJob.perform_later(self) }
-
   private
     def generate_random_hex(n = 1, predicate = proc {})
       hex = SecureRandom.hex(n)

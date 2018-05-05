@@ -1,9 +1,8 @@
 class MessageService
-  def create(conversation_uuid, user_uuid, body)
-    conversation = Conversation.find_by!(uuid: conversation_uuid)
-    user = User.find_by!(uuid: user_uuid)
-
-    message = Message.create!(user_id: user.id, conversation_id: conversation.id, body: body)
+  def create(conversation_id, user_id, body)
+    message = Message.create!(user_id: user_id, conversation_id: conversation_id, body: body)
+    MessageBroadcastJob.perform_later(message)
+    message
   end
 
   def list(conversation_uuid, page, limit)
@@ -12,11 +11,23 @@ class MessageService
       .page(params[:page]).per(params[:limit])
   end
 
-  def upload(conversation_uuid, user_uuid, attachment)
-    conversation = Conversation.find_by!(uuid: conversation_uuid)
-    user = User.find_by!(uuid: user_uuid)
+  def upload(conversation_id, user_id, attachment, body)
+    attach_format = Regexp.union([
+      /\Aaudio\/.*\Z/, /\Avideo\/.*\Z/,
+      /\Aapplication\/.*\Z/, /\Atext\/.*\Z/
+    ])
 
-    # TODO
-    # check format of file and save in current model
+    message = Message.create!(user_id: user_id, conversation_id: conversation_id, body: body)
+
+    if attach_format.match?(attachment.content_type)
+      attach = Attachment.create!(attach: attachment, attachable: message)
+    elsif (/\Aimage\/.*\Z/).match?(attachment.content_type)
+      image = Image.create!(picture: attachment, imageable: message)
+    else
+      raise BadRequestError, I18n.t('messages.attachment.valid.faild')
+    end
+
+    MessageBroadcastJob.perform_later(message)
+    message
   end
 end

@@ -13,7 +13,7 @@ class ConversationChannel < ApplicationCable::Channel
     if body['message'].present?
       recipient = User.find_by!(uuid: body["recipient_uid"])
       conversation = ConversationService.new.get(current_user.id, params[:recipient_uuid])
-      Message.create!(body: body['message'], user: current_user, conversation: conversation)
+      MessageService.new.create(conversation.id, current_user.id, body['message'],)
     end
   rescue ActiveRecord::RecordNotFound
     FailedBroadcastJob.perform_later(current_user, nil, I18n.t('messages.profile.not_found'), 'users')
@@ -23,7 +23,7 @@ class ConversationChannel < ApplicationCable::Channel
     body = data['body']
     conversation = Conversation.find_by!(uuid: body['conversation_uid'])
     if (current_user.id == conversation.sender_id) || (current_user.id == conversation.recipient_id)
-      Message.create!(body: body['message'], user: current_user, conversation: conversation)
+      MessageService.new.create(conversation.id, current_user.id, body['message'],)
     else
       FailedBroadcastJob.perform_later(current_user, conversation, I18n.t('messages.http._401'), 'conversations')
 

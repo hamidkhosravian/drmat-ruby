@@ -55,3 +55,7 @@ en:
 
     country:
       not_found: "the country not found."
+
+    attachment:
+      valid:
+        faild: "format of file is not currect."

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       post 'conversations'  => 'conversations#create'
       post 'conversations/:uuid'  => 'conversations#show'
 
+      # Message
+      post 'conversations/:conversation_uuid/upload' => 'message#upload_file'
     end
   end
 end
