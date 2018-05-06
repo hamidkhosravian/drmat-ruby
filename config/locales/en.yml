@@ -59,3 +59,7 @@ en:
     attachment:
       valid:
         faild: "format of file is not currect."
+
+    validation:
+      format:
+        faild: "this attribute cannot be blank!"

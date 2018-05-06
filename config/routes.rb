@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # Authentication
-      post   'access_token'        => 'authentication#access_token'
-      post   'authorize_token'     => 'authentication#authorize_token'
+      post   'access_token'     => 'authentication#access_token'
+      post   'authorize_token'  => 'authentication#authorize_token'
       put    'refresh_token' => 'authentication#refresh_token'
       delete 'logout'        => 'authentication#logout'
 
@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get  'profile'        => 'profile#show'
       get  'profile/:uuid'  => 'profile#show'
       post 'profile'        => 'profile#create'
+      post 'profile/upload' => 'profile#upload_image'
       put  'profile'        => 'profile#update'
 
       # Conversation
