@@ -1,6 +1,7 @@
 class ConversationService
-  def get(sender_id, recipient_uuid)
+  def get(sender_uuid, recipient_uuid)
     recipient_id = User.find_by!(uuid: recipient_uuid)
+    sender_id = User.find_by!(uuid: sender_uuid)
     conversation = Conversation.between(sender_id, recipient_id)
     return conversation if conversation.present?
 

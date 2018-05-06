@@ -17,7 +17,10 @@ module Api
 
             def create
               param! :recipient_uuid, String, blank: false, required: true
-              @conversation = ConversationService.new.get(current_user.id, params[:recipient_uuid])
+              param! :sender_uuid, String, blank: false, required: true
+
+              # @conversation = ConversationService.new.get(current_user.uuid, params[:recipient_uuid])
+              @conversation = ConversationService.new.get(params[:sender_uuid], params[:recipient_uuid])
 
               render 'api/v1/conversations/show'
             end

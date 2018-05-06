@@ -8,16 +8,16 @@ class ConversationChannel < ApplicationCable::Channel
     stop_all_streams
   end
 
-  def start_conversation
-    body = data['body']
-    if body['message'].present?
-      recipient = User.find_by!(uuid: body['recipient_uid'])
-      conversation = ConversationService.new.get(current_user.id, params[:recipient_uuid])
-      MessageService.new.create(conversation.id, current_user.id, body['message'])
-    end
-  rescue ActiveRecord::RecordNotFound
-    FailedBroadcastJob.perform_later(current_user, nil, I18n.t('messages.profile.not_found'), 'users')
-  end
+  # def start_conversation
+  #   body = data['body']
+  #   if body['message'].present?
+  #     recipient = User.find_by!(uuid: body['recipient_uid'])
+  #     conversation = ConversationService.new.get(current_user.uuid, params[:recipient_uuid])
+  #     MessageService.new.create(conversation.id, current_user.id, body['message'])
+  #   end
+  # rescue ActiveRecord::RecordNotFound
+  #   FailedBroadcastJob.perform_later(current_user, nil, I18n.t('messages.profile.not_found'), 'users')
+  # end
 
   def speak(data)
     body = data['body']
