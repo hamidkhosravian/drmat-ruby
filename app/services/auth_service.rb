@@ -16,7 +16,13 @@ class AuthService
   # check user token
   def authenticate_user!
     raise AuthError unless valid_to_proceed?
-    @device = ::Device.find_by(uuid: decoded_auth_token[:uuid])
+    @device = ::Device.find_by!(uuid: decoded_auth_token[:uuid])
+  end
+
+  # check user token
+  def authenticate_socket_user!(token)
+    raise AuthError unless valid_to_socket_proceed?(token)
+    @device = ::Device.find_by!(uuid: decoded_auth_token[:uuid])
   end
 
   # destory user token
@@ -37,10 +43,22 @@ class AuthService
     http_auth_token && decoded_auth_token && decoded_auth_token[:uuid] && valid_token? && valid_device?
   end
 
+  # check user has access or not for a request
+  def valid_to_socket_proceed?(token)
+    decoded_auth_token = decoded_auth_token(token)
+    decoded_auth_token && decoded_auth_token[:uuid] && valid_socket_token?(token) #&& valid_device?
+  end
+
   # check user token and validation of token
   def valid_token?
-    device = ::Device.find_by(uuid: decoded_auth_token[:uuid])
+    device = ::Device.find_by!(uuid: decoded_auth_token[:uuid])
     device.token.token == http_auth_token if device
+  end
+
+  # check user token and validation of token
+  def valid_socket_token?(token)
+    device = ::Device.find_by!(uuid: decoded_auth_token[:uuid])
+    device.token.socket_token == token if device
   end
 
   def valid_device?
@@ -59,13 +77,14 @@ class AuthService
       os = 5
     end
 
-    device = ::Device.find_by(uuid: decoded_auth_token[:uuid])
+    device = ::Device.find_by!(uuid: decoded_auth_token[:uuid])
     device.os == decoded_auth_token[:os] && device.name == decoded_auth_token[:name] && device.uuid == decoded_auth_token[:uuid]
   end
 
   # decode the token and return the response
-  def decoded_auth_token
-    @decoded_auth_token ||= ::AuthTokenService.decode(http_auth_token)
+  def decoded_auth_token(token = nil)
+    token ||= http_auth_token
+    @decoded_auth_token ||= ::AuthTokenService.decode(token)
   end
 
   # get token from Authorization in header

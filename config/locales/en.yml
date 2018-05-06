@@ -50,5 +50,16 @@ en:
       phone_number:
         invalid: "your number is not correct format."
 
+    conversation:
+      not_found: "the conversation is not exist"
+
     country:
       not_found: "the country not found."
+
+    attachment:
+      valid:
+        faild: "format of file is not currect."
+
+    validation:
+      format:
+        faild: "this attribute cannot be blank!"

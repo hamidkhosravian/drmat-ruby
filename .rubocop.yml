@@ -225,7 +225,7 @@ Style/RedundantReturn:
   Enabled: true
 
 Style/RegexpLiteral:
-  Enabled: true
+  Enabled: false
 
 Style/RescueModifier:
   Enabled: true
