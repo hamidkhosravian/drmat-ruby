@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :phone, presence: true, uniqueness: true
   validates :role, presence: true
 
-  enum role: %i[client expert doctor admin]
+  enum role: %i[client expert doctor]
 
   before_validation :generate_uuid
   after_create :create_profile
