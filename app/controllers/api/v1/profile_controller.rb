@@ -24,9 +24,9 @@ module Api
       end
 
       def user_profile
-        param! :uuid, String, blank: false, required: true
+        param! :uid, String, blank: false, required: true
 
-        @profile = User.find_by(uuid: params['uuid']).profile
+        @profile = User.find_by(uuid: params['uid']).profile
         raise ProfileNotFoundError, I18n.t('messages.profile.not_found') unless @profile
         render 'api/v1/profile/show'
       end

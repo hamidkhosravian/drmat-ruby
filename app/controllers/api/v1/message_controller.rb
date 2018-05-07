@@ -14,7 +14,7 @@ module Api
       end
 
       def upload_file
-        conversation = Conversation.find_by!(uuid: params[:conversation_uuid])
+        conversation = Conversation.find_by!(uuid: params[:conversation_uid])
 
         raise BadRequestError, I18n.t('messages.http._401') unless
           (current_user.id == conversation.sender_id) || (current_user.id == conversation.recipient_id)

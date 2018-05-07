@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
       # Profile
       get  'profile'        => 'profile#show'
-      get  'profile/:uuid'  => 'profile#show'
+      get  'profile/:uid'  => 'profile#show'
       post 'profile'        => 'profile#create'
       post 'profile/upload' => 'profile#upload_image'
       put  'profile'        => 'profile#update'
@@ -19,10 +19,10 @@ Rails.application.routes.draw do
       # Conversation
       get  'conversations'  => 'conversations#index'
       post 'conversations'  => 'conversations#create'
-      post 'conversations/:uuid'  => 'conversations#show'
+      post 'conversations/:uid'  => 'conversations#show'
 
       # Message
-      post 'conversations/:conversation_uuid/upload' => 'message#upload_file'
+      post 'conversations/:conversation_uid/upload' => 'message#upload_file'
     end
   end
 end
